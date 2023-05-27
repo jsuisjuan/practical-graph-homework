@@ -1,6 +1,10 @@
 #include <iostream>
 using namespace std;
+/*
+    Tasks:
+    - implementar busca em largura e profundidade
+*/
 int main(int argc,char *argv[]){
-    cout<<"Hello World!"<<endl;
+    cout<<"This is the library!"<<endl;
     return 0;
 }
