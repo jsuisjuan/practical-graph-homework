@@ -1,39 +1,50 @@
 #include <iostream>
+#include <stdio.h>
 #include <list>
 #include <algorithm>
 using namespace std;
 
-class Grafo{
+/* 
+    saida: 
+        numero de vertice;
+        numero de arestas;
+        grau medio;
+        distribuicao empirica do grau de vertice.
+ */
+
+class Grafo {
 private:
     int V;
-    list<int>*adj;
+    list<int> *adj;
 public:
     Grafo(int V);
-    void adicionarAresta(int v1,int v2);
+    void adicionarAresta(int v1, int v2);
     int obterGrauDeSaida(int v);
-    bool existeVizinho(int v1,int v2);
+    bool existeVizinho(int v1, int v2);
 };
 
-Grafo::Grafo(int V){
-    this->V=V;
-    adj=new list<int>[V];
+Grafo::Grafo(int V) {
+    this->V = V;
+    adj = new list<int>[V];
 }
 
-void Grafo::adicionarAresta(int v1,int v2){
+void Grafo::adicionarAresta(int v1, int v2) {
     adj[v1].push_back(v2);
 }
 
-void Grafo::obterGrauDeSaida(int v){
+int Grafo::obterGrauDeSaida(int v) {
     return adj[v].size();
 }
 
-bool Grafo::existeVizinho(int v1,int v2){
-    if (find(adj[v1].begin(),adj[v1].end(),v2)!=adj[v1].end)return true;
+bool Grafo::existeVizinho(int v1, int v2) {
+    if (find(adj[v1].begin(), adj[v1].end(), v2) != adj[v1].end())
+        return true;
     return false;
 }
 
-int main(int argc,char *argv[]){
+int main(int argc, char *argv[]) {
     Grafo grafo(4);
+
     grafo.adicionarAresta(0, 1);
     grafo.adicionarAresta(0, 3);
     grafo.adicionarAresta(1, 2);

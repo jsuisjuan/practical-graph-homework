@@ -10,7 +10,7 @@ private:
 public:
     Grafo(int V);
     void adicionarAresta(int v1,int v2);
-    void bfs(int v;)
+    void bfs(int v);
 };
 
 Grafo::Grafo(int V){
@@ -18,7 +18,7 @@ Grafo::Grafo(int V){
     adj=new list<int>[V];
 }
 
-Grafo::adicionarAresta(int v1, int v2){
+void Grafo::adicionarAresta(int v1, int v2){
     adj[v1].push_back(v2);
 }
 
@@ -46,6 +46,7 @@ void Grafo::bfs(int v){
 
 int main(int argc,char *argv[]){
     int V=8;
+    Grafo grafo(V);
     grafo.adicionarAresta(0, 1);
     grafo.adicionarAresta(0, 2);
     grafo.adicionarAresta(1, 3);
@@ -54,5 +55,5 @@ int main(int argc,char *argv[]){
     grafo.adicionarAresta(2, 6);
     grafo.adicionarAresta(6, 7);
     grafo.bfs(0);   
-    return 0
+    return 0;
 }
