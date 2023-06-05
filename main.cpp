@@ -1,6 +1,8 @@
 #include <iostream>
 #include <stdio.h>
-#include "implementation-header.cpp"
+#include <list>
+#include "./header-files/graph.h"
+
 using namespace std;
 /*
     Tasks:
@@ -8,8 +10,9 @@ using namespace std;
     - integrar tudo utilizando o header(refatoracao tbm)
     - fazer essa de componente conexo
 */
+
 int main(int argc, char *argv[]) {
-    cout<< header_test()<<endl;
+    /* cout<< header_test()<<endl;
 
     FILE *arquivo;
     int numero = 0, i = 0;
@@ -29,6 +32,18 @@ int main(int argc, char *argv[]) {
         }
         i++;
     }
-    fclose(arquivo);
+    fclose(arquivo); */
+    int V=8;
+    Grafo grafo(V);
+    grafo.adicionar_aresta(0, 1);
+    grafo.adicionar_aresta(0,1,3);
+    grafo.adicionar_aresta(0, 2);
+    grafo.adicionar_aresta(1, 3);
+    grafo.adicionar_aresta(1, 4);
+    grafo.adicionar_aresta(2, 5);
+    grafo.adicionar_aresta(2, 6);
+    grafo.adicionar_aresta(6, 7);
+    grafo.dfs(0); 
+    //grafo.bfs(0);
     return 0;
 }
