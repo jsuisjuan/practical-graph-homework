@@ -34,16 +34,7 @@ int main(int argc, char *argv[]) {
     }
     fclose(arquivo); */
     int V=8;
-    Grafo grafo(V);
-    grafo.adicionar_aresta(0, 1);
-    grafo.adicionar_aresta(0,1,3);
-    grafo.adicionar_aresta(0, 2);
-    grafo.adicionar_aresta(1, 3);
-    grafo.adicionar_aresta(1, 4);
-    grafo.adicionar_aresta(2, 5);
-    grafo.adicionar_aresta(2, 6);
-    grafo.adicionar_aresta(6, 7);
-    grafo.dfs(0); 
+    
     //grafo.bfs(0);
     return 0;
 }
