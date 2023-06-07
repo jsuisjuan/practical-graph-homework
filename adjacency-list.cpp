@@ -4,13 +4,6 @@
 #include <algorithm>
 using namespace std;
 
-/* 
-    saida: 
-        numero de vertice;
-        numero de arestas;
-        grau medio;
-        distribuicao empirica do grau de vertice.
- */
 
 class Grafo {
 private:

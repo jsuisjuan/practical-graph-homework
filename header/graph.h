@@ -27,6 +27,9 @@ public:
     bool existe_vizinho(int v1, int v2);
     void dfs(int v);
     void bfs(int v);
+    void unir(int subset[], int v1, int v2);
+    void buscar(int subset[], int i);
+    void kruskal();
 };
 
 #endif
