@@ -1,7 +1,13 @@
-#ifndef GRAPH_H
-#define GRAPH_H
+#ifndef GRAFO_LISTA_ADJACENCIA_H
+#define GRAFO_LISTA_ADJACENCIA_H
 #include <list>
 #include <vector>
+
+/*
+    bfs = 2;
+    dfs = 2;
+    kruskal = 3;
+*/
 
 class Aresta {
 private:
@@ -14,7 +20,7 @@ public:
     bool operator < (const Aresta& aresta2) const;
 };
 
-class Grafo {
+class ListaAdjacencia {
 private:
     int V;
     std::list<int> *adj;

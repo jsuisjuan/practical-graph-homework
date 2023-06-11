@@ -38,11 +38,28 @@ bool Grafo::existeVizinho(int v1, int v2) {
 int main(int argc, char *argv[]) {
     Grafo grafo(4);
 
-    grafo.adicionarAresta(0, 1);
-    grafo.adicionarAresta(0, 3);
-    grafo.adicionarAresta(1, 2);
-    grafo.adicionarAresta(3, 1);
-    grafo.adicionarAresta(3, 2);
+    
+
+    FILE *arquivo;
+    int numero = 0, i = 0;
+    int valores[3];
+
+    arquivo = fopen("teste.txt", "r");
+    if (!arquivo) {
+        printf("Arquivo nao esta abrindo.");
+        return 1;
+    }
+    while (fscanf(arquivo, "%d,", &numero) > 0) {
+        if (i < 3) valores[i] = numero;
+        else {
+            grafo.adicionarAresta(valores[0], valores[1]);
+            i = 0;
+            valores[i] = numero;
+        }
+        i++;
+    }
+    fclose(arquivo); 
+    
     cout<<"Grau de saida do vertice 1: "<<grafo.obterGrauDeSaida(1)<<endl;
     cout<<"Grau de saida do vertice 3: "<<grafo.obterGrauDeSaida(3)<<endl;
     cout<<"Grau de saida do vertice 0: "<<grafo.obterGrauDeSaida(0)<<endl;
