@@ -1,12 +1,11 @@
 #ifndef GRAFO_MATRIZ_ADJACENCIA_H
 #define GRAFO_MATRIZ_ADJACENCIA_H
-#include <list>
 #include <vector>
 
 class MatrizAdjacencia {
 private:
     bool** grafo;
-    int numVertices;
+    int V;
 public:
     Grafo(int V);
     void adicionar_aresta(int i, int j);

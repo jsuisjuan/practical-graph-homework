@@ -1,50 +1,55 @@
 #include <iostream>
 #include <vector>
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 #include "./header/grafo-matriz-adjacencia.h"
 #define V 5
 
 int parent[V];
 vector<vector<int> > adj;
 
-bool tem_ligacao(int v1,int v2) {
-    if(grafo[v1][v2])return true;
+bool tem_ligacao(int v1, int v2) {
+    if(grafo[v1][v2]) return true;
     return false;
 }
 
-MatrizAdjacencia::Grafo(int numVertices) {
-    this->numVertices = numVertices;
-    adjMatrix = new bool*[numVertices];
-    for (int i = 0; i < numVertices; i++) {
-      adjMatrix[i] = new bool[numVertices];
-      for (int j = 0; j < numVertices; j++)
-        adjMatrix[i][j] = false;
+MatrizAdjacencia::Grafo(int V) {
+    this->V = V;
+    grafo = new bool*[V];
+    for (int i = 0; i < V; i++) {
+      grafo[i] = new bool[V];
+      for (int j = 0; j < V; j++)
+        grafo[i][j] = false;
     }
 }
 
 void MatrizAdjacencia::adicionar_aresta(int i, int j) {
-    adjMatrix[i][j] = true;
-    adjMatrix[j][i] = true;
+    grafo[i][j] = true;
+    grafo[j][i] = true;
+}
+
+void MatrizAdjacencia::adicionar_aresta(int i, int j) {
+    grafo[i][j] = true;
+    grafo[j][i] = true;
 }
 
 void MatrizAdjacencia::remover_aresta(int i, int j) {
-    adjMatrix[i][j] = false;
-    adjMatrix[j][i] = false;
+    grafo[i][j] = false;
+    grafo[j][i] = false;
 }
 
 void MatrizAdjacencia::imprimir_representacao() {
-    for (int i = 0; i < numVertices; i++) {
+    for (int i = 0; i < V; i++) {
       cout << i << " : ";
-      for (int j = 0; j < numVertices; j++)
-        cout << adjMatrix[i][j] << " ";
+      for (int j = 0; j < V; j++)
+        cout << grafo[i][j] << " ";
       cout << "\n";
     }
 }
 
 MatrizAdjacencia::~Graph() {
-    for (int i = 0; i < numVertices; i++)
-      delete[] adjMatrix[i];
-    delete[] adjMatrix;
+    for (int i = 0; i < V; i++)
+      delete[] grafo[i];
+    delete[] grafo;
 }
 
 void MatrizAdjacencia::bfs(int start) {
@@ -112,7 +117,7 @@ void MatrizAdjacencia::unir(int i, int j) {
     parent[a] = b;
 }
  
-void MatrizAdjacencia::kruskal(int cost[][V]){
+void MatrizAdjacencia::kruskal(int cost[][V]) {
     int mincost = 0; // Cost of min MST.
  
     // Initialize sets of disjoint sets.
@@ -133,7 +138,7 @@ void MatrizAdjacencia::kruskal(int cost[][V]){
             }
         }
  
-        union1(a, b);
+        unir(a, b);
         printf("Edge %d:(%d, %d) cost:%d \n",
                edge_count++, a, b, min);
         mincost += min;
