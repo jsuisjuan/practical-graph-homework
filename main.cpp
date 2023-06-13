@@ -39,20 +39,22 @@ int main(int argc, char *argv[]) {
                 std::cout<<"2.Matriz de Adjacencia sem peso\n";
                 std::cout<<"3.Lista de Adjacencia com peso\n";
                 std::cout<<"4.Lista de Adjacencia sem peso\n";
-                std::cin>>tipo_representacao;
+                tipo_grafo = "Matriz de Adjacencia com peso";
+                //std::cin>>tipo_representacao;
+                /* arquivo_lido = !arquivo_lido;
                 if(tipo_representacao == 1) MatrizAdjacencia.grafo(nome_arquivo);
                 if(tipo_representacao == 2) MatrizAdjacencia.grafo(nome_arquivo);
                 if(tipo_representacao == 3) ListaAdjacencia.grafo(nome_arquivo);
                 if(tipo_representacao == 4) ListaAdjacencia.grafo(nome_arquivo);
-                else std::cout<<"nenhuma das opcoes foram escolhidas.\n";
+                else std::cout<<"nenhuma das opcoes foram escolhidas.\n"; */
                 break;
             case 3: 
                 std::cout<<"1.BFS\n";
                 std::cout<<"2.DFS\n";
-                std::cin>>tipo_representacao;
+                /* std::cin>>tipo_representacao;
                 if(tipo_representacao == 1) MatrizAdjacencia.bfs(nome_arquivo);
                 if(tipo_representacao == 2) MatrizAdjacencia.dfs(nome_arquivo);
-                else std::cout<<"nenhuma das opcoes foram escolhidas.\n";
+                else std::cout<<"nenhuma das opcoes foram escolhidas.\n"; */
                 break;
             case 4: break;
         }
@@ -62,7 +64,7 @@ int main(int argc, char *argv[]) {
 
 int menu() {
     int opcao;
-    if(!arquivo_lido) std::cout << "\n\n\n----Menu Principal ----\n\n";
+    if(!arquivo_lido && !tipo_grafo) std::cout << "\n\n\n----Menu Principal ----\n\n";
     else std::cout << "\n\n\n----Menu Principal (grafo "<<tipo_grafo<<")----\n\n";
     std::cout<< "\n1.Arquivo de entrada";
     std::cout<< "\n2.Representacao do grafo";

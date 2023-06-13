@@ -1,6 +1,7 @@
 #include <iostream>
 #include <list>
 #include <queue>
+#include <vector>
 #include <stack>
 #include <algorithm>
 #include "./header/grafo-lista-adjacencia.h"

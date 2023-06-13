@@ -1,6 +1,8 @@
 #ifndef GRAFO_MATRIZ_ADJACENCIA_H
 #define GRAFO_MATRIZ_ADJACENCIA_H
 #include <vector>
+using std::vector;
+#define VERTICES 5
 
 class MatrizAdjacencia {
 private:
@@ -15,8 +17,7 @@ public:
     void dfs(int start, vector<bool>& visited);
     int  buscar(int i);
     void unir(int i, int j);
-    void kruskal(int cost[][V]);
-    ~Graph();
+    void kruskal(int cost[][VERTICES]);
 };
 
 #endif

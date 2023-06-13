@@ -2,10 +2,10 @@
 #include <vector>
 #include <bits/stdc++.h>
 #include "./header/grafo-matriz-adjacencia.h"
-#define V 5
 
-int parent[V];
-vector<vector<int> > adj;
+
+int parent[VERTICES];
+std::vector<std::vector<int> > adj;
 
 bool tem_ligacao(int v1, int v2) {
     if(grafo[v1][v2]) return true;
@@ -46,19 +46,14 @@ void MatrizAdjacencia::imprimir_representacao() {
     }
 }
 
-MatrizAdjacencia::~Graph() {
-    for (int i = 0; i < V; i++)
-      delete[] grafo[i];
-    delete[] grafo;
-}
 
 void MatrizAdjacencia::bfs(int start) {
     // Visited vector to so that
     // a vertex is not visited more than once
     // Initializing the vector to false as no
     // vertex is visited at the beginning
-    vector<bool> visited(adj.size(), false);
-    vector<int> q;
+    std::vector<bool> visited(adj.size(), false);
+    std::vector<int> q;
     q.push_back(start);
   
     // Set source as visited
@@ -86,7 +81,7 @@ void MatrizAdjacencia::bfs(int start) {
     }
 }
 
-void MatrizAdjacencia::dfs(int start, vector<bool>& visited) {
+void MatrizAdjacencia::dfs(int start, std::vector<bool>& visited) {
  
     // Print the current node
     cout << start << " ";
@@ -117,7 +112,8 @@ void MatrizAdjacencia::unir(int i, int j) {
     parent[a] = b;
 }
  
-void MatrizAdjacencia::kruskal(int cost[][V]) {
+void MatrizAdjacencia::kruskal(int cost[][VERTICES]) {
+    int V = VERTICES;
     int mincost = 0; // Cost of min MST.
  
     // Initialize sets of disjoint sets.
