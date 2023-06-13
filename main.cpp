@@ -5,7 +5,7 @@
 #include "./header/grafo-matriz-adjacencia.h"
 
 bool arquivo_lido = false;
-const char* tipo_grafo;
+std::string tipo_grafo;
 
 /*
     Tasks:
@@ -24,7 +24,7 @@ int menu();
 
 int main(int argc, char *argv[]) {
     int opcao, tipo_representacao;
-    string nome_arquivo;
+    std::string nome_arquivo;
     
     do {
         opcao = menu();
@@ -58,13 +58,13 @@ int main(int argc, char *argv[]) {
                 break;
             case 4: break;
         }
-    } while(op1 != 0);
+    } while(opcao != 0);
     return 0;
 }
 
 int menu() {
     int opcao;
-    if(!arquivo_lido && !tipo_grafo) std::cout << "\n\n\n----Menu Principal ----\n\n";
+    if(!arquivo_lido && tipo_grafo=="") std::cout << "\n\n\n----Menu Principal ----\n\n";
     else std::cout << "\n\n\n----Menu Principal (grafo "<<tipo_grafo<<")----\n\n";
     std::cout<< "\n1.Arquivo de entrada";
     std::cout<< "\n2.Representacao do grafo";
@@ -76,11 +76,12 @@ int menu() {
     return opcao;
 }
 
-int ler_arquivo_entrada(string nome_arquivo) {
+int ler_arquivo_entrada(const char* nome_arquivo) {
     FILE *arquivo;
-    string nome_arquivo;
     int numero = 0, i = 0;
     int valores[3];
+
+    ListaAdjacencia grafo;
 
     arquivo = fopen(nome_arquivo, "r");
 
@@ -91,11 +92,12 @@ int ler_arquivo_entrada(string nome_arquivo) {
     while (fscanf(arquivo, "%d,", &numero) > 0) {
         if (i < 3) valores[i] = numero;
         else {
-            grafo.adicionarAresta(valores[0], valores[1], valores[2]);
+            grafo.adicionar_aresta(valores[0], valores[1], valores[2]);
             i = 0;
             valores[i] = numero;
         }
         i++;
     }
     fclose(arquivo);
+    return 0;
 }

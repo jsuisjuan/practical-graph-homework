@@ -39,10 +39,10 @@ void MatrizAdjacencia::remover_aresta(int i, int j) {
 
 void MatrizAdjacencia::imprimir_representacao() {
     for (int i = 0; i < V; i++) {
-      cout << i << " : ";
+      std::cout << i << " : ";
       for (int j = 0; j < V; j++)
-        cout << grafo[i][j] << " ";
-      cout << "\n";
+        std::cout << grafo[i][j] << " ";
+      std::cout << "\n";
     }
 }
 
@@ -64,7 +64,7 @@ void MatrizAdjacencia::bfs(int start) {
         vis = q[0];
   
         // Print the current node
-        cout << vis << " ";
+        std::cout << vis << " ";
         q.erase(q.begin());
   
         // For every adjacent vertex to the current vertex
@@ -84,7 +84,7 @@ void MatrizAdjacencia::bfs(int start) {
 void MatrizAdjacencia::dfs(int start, std::vector<bool>& visited) {
  
     // Print the current node
-    cout << start << " ";
+    std::cout << start << " ";
  
     // Set current node as visited
     visited[start] = true;

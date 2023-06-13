@@ -146,6 +146,6 @@ void ListaAdjacencia::kruskal() {
     for (int i = 0; i < size_arvore; i++) {
         char v1 = 'A' + arvore[i].obterVertice1();
         char v2 = 'A' + arvore[i].obterVertice2();
-        cout << "(" << v1 << ", " << v2 << ") = " << arvore[i].obterPeso() << endl;
+        std::cout << "(" << v1 << ", " << v2 << ") = " << arvore[i].obterPeso() << std::endl;
     }
 }
