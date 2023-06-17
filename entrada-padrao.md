@@ -65,3 +65,56 @@
         { INT_MAX, 5, 7, 9, INT_MAX },
     };
     kruskalMST(cost);
+# dijkstra
+    Grafo g(5);
+
+    g.addAresta(0, 1, 4);
+    g.addAresta(0, 2, 2);
+    g.addAresta(0, 3, 5);
+    g.addAresta(0, 1, 4);
+    g.addAresta(1, 4, 1);
+    g.addAresta(2, 1, 1);
+    g.addAresta(2, 3, 2);
+    g.addAresta(2, 4, 1);
+    g.addAresta(3, 4, 1);
+
+    cout << g.dijkstra(0, 4) << endl;
+
+<!-- void manipular_grafo_matriz() {
+    int opcao, vertice;
+    do {
+        std::cout<<"\t\t[grafo: "<<tipo_grafo[grafo_selecionado]<<"]";
+        std::cout<<"\n1.imprimir saidas";
+        std::cout<<"\n2.executar bfs";
+        std::cout<<"\n3.executar dfs";
+        std::cout<<"\n4.executar kruskal";
+        std::cout<<"\n5.alterar representacao";
+        std::cout<<"\n0.sair";
+        std::cout<<"\ndigite um opcao: ";
+        std::cin>>opcao;
+        switch(opcao){
+        case 1: 
+            grafo_matriz.imprimir_valores(); 
+            break;
+        case 2: 
+            std::cout<<"entre com um vertice inicial: ";
+            std::cin>>vertice;
+            grafo_matriz.bfs(vertice); 
+            break;
+        case 3: 
+            std::cout<<"entre com um vertice inicial: ";
+            std::cin>>vertice;
+            std::vector<bool> visited(v, false);
+            grafo_matriz.dfs(vertice, visited); 
+            break;
+        case 4: 
+            std::cout<<"entre com um vertice inicial: ";
+            std::cin>>vertice;
+            grafo_matriz.kruskal(vertice); 
+            break;
+        case 5: 
+            application(); 
+            break;
+        }
+    } while(opcao != 0);
+} -->

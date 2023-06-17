@@ -3,6 +3,7 @@
 #include <queue>
 #include <vector>
 #include <stack>
+#include <cstring>
 #include <algorithm>
 #include "./header/grafo-lista-adjacencia.h"
 
@@ -47,10 +48,14 @@ int ListaAdjacencia::obter_grau_de_saida(int v) {
 }
 
 bool ListaAdjacencia::existe_vizinho(int v1, int v2) {
-    if (find(adj[v1].begin(), adj[v1].end(), v2) != adj[v1].end()) {
+    if (std::find(adj[v1].begin(), adj[v1].end(), v2) != adj[v1].end()) {
         return true;
     }
     return false;
+}
+
+void ListaAdjacencia::imprimir_valores() {
+    std::cout<<"imprimiu saida lista!"<<std::endl;;
 }
 
 void ListaAdjacencia::dfs(int v) {
@@ -125,16 +130,16 @@ void ListaAdjacencia::unir(int subset[], int v1, int v2) {
 }
 
 void ListaAdjacencia::kruskal() {
-    vector<Aresta> arvore;
+    std::vector<Aresta> arvore;
     int size_arestas = arestas.size();
 
-    sort(arestas.begin(), arestas.end());
+    std::sort(arestas.begin(), arestas.end());
     int* subset = new int[V];
     memset(subset, -1, sizeof(int) * V);
 
     for (int i = 0; i < size_arestas; i++) {
-        int v1 = buscar(subset, arestas[i].obterVertice1());
-        int v2 = buscar(subset, arestas[i].obterVertice2());
+        int v1 = buscar(subset, arestas[i].obter_vertice1());
+        int v2 = buscar(subset, arestas[i].obter_vertice2());
 
         if (v1 != v2) {
             arvore.push_back(arestas[i]);
@@ -144,8 +149,65 @@ void ListaAdjacencia::kruskal() {
     int size_arvore = arvore.size();
 
     for (int i = 0; i < size_arvore; i++) {
-        char v1 = 'A' + arvore[i].obterVertice1();
-        char v2 = 'A' + arvore[i].obterVertice2();
-        std::cout << "(" << v1 << ", " << v2 << ") = " << arvore[i].obterPeso() << std::endl;
+        char v1 = 'A' + arvore[i].obter_vertice1();
+        char v2 = 'A' + arvore[i].obter_vertice2();
+        std::cout << "(" << v1 << ", " << v2 << ") = " << arvore[i].obter_peso() << std::endl;
     }
+}
+
+int ListaAdjacencia::dijkstra(int orig, int dest) {
+        // vetor de distâncias
+        int dist[V];
+
+        /*
+            vetor de visitados serve para caso o vértice já 
+            tenha sido expandido (visitado), não expandir mais 
+        */
+        int visitados[V];
+
+        std::priority_queue < std::pair<int, int>,
+            std::vector<std::pair<int, int>>, std::greater<std::pair<int, int>>> pq;
+        
+        // inicia o vetor de distâncias e visitados
+        for (int i = 0; i < V; i++) {
+            dist[i] = INFINITO;
+            visitados[i] = false;
+        }
+
+        // a distância de orig para orig é 0
+        dist[orig] = 0;
+
+        // insere na fila
+        pq.push(std::make_pair(dist[orig], orig));
+
+        // loop do algoritmo
+        while(!pq.empty()) {
+            std::pair<int , int> p = pq.top();   // extrai o pair do topo
+            int u = p.second;               // obtém o vértice do pair
+            pq.pop();                       // remove da fila
+
+            // verifica se o vértice não foi expandido
+            if (visitados[u] == false) {
+                // marca como visitado
+                visitados[u] = true;
+                std::list<std::pair<int, int>>::iterator it;
+
+                // percorre os vértices "v" adjacentes de "u"
+                for (it = adjd[u].begin(); it != adjd[u].end(); it++) {
+                    // obtém o vértice adjacente e o custo da aresta
+                    int v = it->first;
+                    int custo_aresta = it->second;
+
+                    // relaxamento (u, v)
+                    if (dist[v] > (dist[u] + custo_aresta)) {
+                        // atualiza a distância de "v" e insere
+                        dist[v] = dist[u] + custo_aresta;
+                        pq.push(std::make_pair(dist[v], v));
+                    }
+
+                }
+            }
+        }
+        // retorna a distância mínima até o destino
+        return dist[dest];
 }

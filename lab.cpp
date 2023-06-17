@@ -3,12 +3,19 @@
 #include <fstream>
 #include <string>
 #include <string.h> 
+#include <array>
+#include <bits/stdc++.h>
+#include <typeinfo>
+#include <malloc.h>
 #define LOWER 1024
 #define UPPER 65536
+double concatenar_array(char arr[]){
+    const char *dest="";
+    std::string::size_type sz; 
+    return std::stod(std::strcat(arr, dest),&sz);
+}
 int main(int argc,char *argv[]){
     FILE *arquivo;
-    char dado[20];
-    int numero = 0, i = 0, valores[3];
     arquivo=fopen("teste.txt","r");
     if(arquivo==NULL){
         std::cout<<"arquivo nao abriu!"<<std::endl;
@@ -35,8 +42,17 @@ int main(int argc,char *argv[]){
     memoria = (char*)realloc(memoria,total);
     memoria[total-1]='\0';
     fclose(arquivo);
-    std::cout<<"File contents:\n\n";
-    std::cout<<memoria;
+    for(int i=0;i<_msize(memoria);i++) {
+        char numero[10];
+        int quantidade_decimais=0;
+        while(memoria[i]!=' ' && memoria[i]!='\n') {
+            numero[quantidade_decimais] = memoria[i];
+            quantidade_decimais++;
+            i++;
+        }
+        std::cout<<concatenar_array(numero)<<std::endl;
+        std::fill(std::begin(numero), std::end(numero), '\0');
+    }
     free(memoria);
     return 0;
 }

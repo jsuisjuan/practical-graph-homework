@@ -2,6 +2,10 @@
 #include <stdio.h>
 #include <fstream>
 #include <list>
+#include <array>
+#include <bits/stdc++.h>
+#include <typeinfo>
+#include <malloc.h>
 #include <map>
 #include "./header/grafo-lista-adjacencia.h"
 #include "./header/grafo-matriz-adjacencia.h"
@@ -14,11 +18,12 @@ bool grafo_definido = false;
 int grafo_selecionado;
 char *memoria;
 
+MatrizAdjacencia grafo_matriz;
+ListaAdjacencia grafo_lista;
+
 std::map<int, std::string> tipo_grafo {
-    {1,"matriz_c_peso"},
-    {2,"matriz_s_peso"},
-    {3,"lista_c_peso"},
-    {4,"list_s_peso"}
+    {1,"matriz_adjacencia"},
+    {2,"lista_adjacencia"}
 };
 
 /*
@@ -37,56 +42,43 @@ std::map<int, std::string> tipo_grafo {
     -n faz sentido ter opcoes abertas  se n tem arquivo alocado
 */
 
-int menu();
-int ler_arquivo_entrada();
+int  application();
+int  ler_arquivo_entrada();
 void representar_grafo();
+void manipular_grafo_matriz();
+void manipular_grafo_lista();
+double concatenar_array(char arr[]);
 
 int main(int argc, char *argv[]) {
-    int opcao, tipo_representacao;
-    std::string nome_arquivo;
-    
-    do {
-        opcao = menu();
-        switch(opcao){
-            case 1: ler_arquivo_entrada(); break;
-            case 2: representar_grafo(); break;
-            case 3: 
-                std::cout<<"1.BFS\n";
-                std::cout<<"2.DFS\n";
-                /* std::cin>>tipo_representacao;
-                if(tipo_representacao == 1) MatrizAdjacencia.bfs(nome_arquivo);
-                if(tipo_representacao == 2) MatrizAdjacencia.dfs(nome_arquivo);
-                else std::cout<<"nenhuma das opcoes foram escolhidas.\n"; */
-                break;
-            case 4: break;
-        }
-    } while(opcao != 0);
+    ler_arquivo_entrada();
+    if (arquivo_lido && memoria != NULL) {
+        std::cout<<"dados lidos e armazenados com sucesso!\n"<<std::endl;
+        application();
+    }
     return 0;
 }
 
-int menu() {
-    int opcao;
-    if(arquivo_lido && grafo_definido) 
-        std::cout << "\n\n\n----Menu Principal (grafo "<<tipo_grafo[grafo_selecionado]<<")----\n\n";
-    else std::cout << "\n\n\n----Menu Principal----\n\n";
-    std::cout<< "\n1.Arquivo de entrada";
-    std::cout<< "\n2.Representacao do grafo";
-    std::cout<< "\n3.Busca em grafos";
-    std::cout<< "\n4.Componentes conexos";
-    std::cout<< "\n0.Sair";
-    std::cout<< "\nDigite um opcao: ";
-    std::cin >> opcao;
-    return opcao;
+int application() {
+    representar_grafo();
+    if (tipo_grafo[grafo_selecionado] == "matriz_adjacencia") manipular_grafo_matriz();
+    if (tipo_grafo[grafo_selecionado] == "lista_adjacencia") manipular_grafo_lista();
+    return 0;
+}
+
+double concatenar_array(char arr[]){
+    const char *dest="";
+    std::string::size_type sz; 
+    return std::stod(std::strcat(arr, dest),&sz);
 }
 
 int ler_arquivo_entrada() {
     FILE *arquivo;
-    const char nome_arquivo;
-    int numero = 0, i = 0;
+    char *nome_arquivo;
     int valores[3];
 
-    std::cout<<"Path (src//arq.txt): ";
-    std::cin>> nome_arquivo;
+    std::cout<<"GraphLib shell version: 1.0.0\n";
+    std::cout<<"path (src//arq.txt): ";
+    std::cin>>nome_arquivo;
 
     arquivo=fopen(nome_arquivo,"r");
     if(arquivo==NULL){
@@ -114,36 +106,113 @@ int ler_arquivo_entrada() {
     memoria = (char*)realloc(memoria,total);
     memoria[total-1]='\0';
     fclose(arquivo);
-    std::cout<<"File contents:\n\n";
-    std::cout<<memoria[0];
-    free(memoria);
-    arquivo_lido = true;
     return 0;
-
-    
-
-   /* ListaAdjacencia grafo;
-    while (fscanf(arquivo, "%d,", &numero) > 0) {
-        if (i < 3) valores[i] = numero;
-        else {
-            grafo.adicionar_aresta(valores[0], valores[1], valores[2]);
-            i = 0;
-            valores[i] = numero;
-        }
-        i++;
-    }
-    fclose(arquivo);
-    return 0; */
 }
 
 void representar_grafo() {
-    std::cout<<"1.Matriz de Adjacencia com peso\n";
-    std::cout<<"2.Matriz de Adjacencia sem peso\n";
-    std::cout<<"3.Lista de Adjacencia com peso\n";
-    std::cout<<"4.Lista de Adjacencia sem peso\n";
+    bool numero_vertice_alocado = false;
+    double valores[2], numero_vertice;
+    int contador = 0;
+    std::cout<<"1.matriz de adjacencia\n";
+    std::cout<<"2.lista de adjacencia\n";
+    std::cout<<"escolha um tipo de representacao: ";
     std::cin>> grafo_selecionado;
-    if(grafo_selecionado == 1 || grafo_selecionado == 2) MatrizAdjacencia.grafo(nome_arquivo);
-    else if(grafo_selecionado == 3 || grafo_selecionado == 4) ListaAdjacencia.grafo(nome_arquivo);
-    else std::cout<<"nenhuma das opcoes foram escolhidas"<<std::endl;
+    if (grafo_selecionado == 1) {
+        std::cout<<"grafo matrix foi representado"<<std::endl;
+    }
+    if (grafo_selecionado == 2) {
+        for (int i = 0; i < _msize(memoria); i++) {
+            char numero[10];
+            int quantidade_decimais = 0; //talvez eu tenho que colocar uma condicao para n pegar o ' '
+            while (memoria[i] != ' ' && memoria[i] != '\n') {
+                numero[quantidade_decimais] = memoria[i];
+                quantidade_decimais++;
+                i++;
+            }
+            std::cout<<concatenar_array(numero)<<std::endl;
+            numero_vertice = concatenar_array(numero);
+            if (numero_vertice_alocado) {
+                if (contador < 2) valores[contador] = numero_vertice;
+                else {
+                    grafo_lista.adicionar_aresta(valores[0], valores[1]);
+                    contador = 0;
+                    valores[contador] = numero_vertice;
+                }
+                contador++;
+            } else {
+                grafo_lista.Grafo(numero_vertice);
+                numero_vertice_alocado = true;
+            }
+            std::fill(std::begin(numero), std::end(numero), '\0');
+        }
+    } else std::cout<<"nenhuma das opcoes foram escolhidas"<<std::endl;
     grafo_definido = true;
+}
+
+void manipular_grafo_matriz() {
+    int opcao, vertice;
+    do {
+        std::cout<<"\t\t[grafo: "<<tipo_grafo[grafo_selecionado]<<"]";
+        std::cout<<"\n1.imprimir saidas";
+        std::cout<<"\n2.executar bfs";
+        std::cout<<"\n3.executar dfs";
+        std::cout<<"\n4.executar kruskal";
+        std::cout<<"\n5.alterar representacao";
+        std::cout<<"\n0.sair";
+        std::cout<<"\ndigite um opcao: ";
+        std::cin>>opcao;
+        switch(opcao){
+        case 1: 
+            std::cout<<"matriz"<<std::endl;
+            break;
+        case 2: 
+            std::cout<<"matriz"<<std::endl;
+            break;
+        case 3: 
+            std::cout<<"matriz"<<std::endl;
+            break;
+        case 4: 
+            std::cout<<"matriz"<<std::endl;
+            break;
+        case 5: 
+            std::cout<<"matriz"<<std::endl;
+            break;
+        }
+    } while(opcao != 0);
+}
+
+void manipular_grafo_lista() {
+    int opcao, vertice;
+    do {
+        std::cout<<"\t\t[grafo: "<<tipo_grafo[grafo_selecionado]<<"]";
+        std::cout<<"\n1.imprimir saidas";
+        std::cout<<"\n2.executar bfs";
+        std::cout<<"\n3.executar dfs";
+        std::cout<<"\n4.executar kruskal";
+        std::cout<<"\n5.alterar representacao";
+        std::cout<<"\n0.sair";
+        std::cout<<"\ndigite um opcao: ";
+        std::cin>>opcao;
+        switch(opcao){
+        case 1: 
+            grafo_lista.imprimir_valores(); 
+            break;
+        case 2: 
+            std::cout<<"entre com um vertice inicial: ";
+            std::cin>>vertice;
+            grafo_lista.bfs(vertice); 
+            break;
+        case 3: 
+            std::cout<<"entre com um vertice inicial: ";
+            std::cin>>vertice;
+            grafo_lista.dfs(vertice); 
+            break;
+        case 4: 
+            grafo_lista.kruskal(); 
+            break;
+        case 5: 
+            application(); 
+            break;
+        }
+    } while(opcao != 0);
 }

@@ -1,7 +1,9 @@
 #ifndef GRAFO_LISTA_ADJACENCIA_H
 #define GRAFO_LISTA_ADJACENCIA_H
 #include <list>
+#include <queue>
 #include <vector>
+#define INFINITO 10000000
 
 class Aresta {
 private:
@@ -19,17 +21,20 @@ private:
     int V;
     std::list<int> *adj;
     std::vector<Aresta> arestas;
+    std::list<std::pair<int, int> > * adjd;
 public:
     Grafo(int V);
     void adicionar_aresta(int v1, int v2);
     void adicionar_aresta(int v1, int v2, int peso);
     int  obter_grau_de_saida(int v);
     bool existe_vizinho(int v1, int v2);
+    void imprimir_valores();
     void dfs(int v);
     void bfs(int v);
     void unir(int subset[], int v1, int v2);
-    void buscar(int subset[], int i);
+    int buscar(int subset[], int i);
     void kruskal();
+    int  dijkstra(int orig, int dest);
 };
 
 #endif

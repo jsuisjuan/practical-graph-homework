@@ -3,11 +3,10 @@
 #include <bits/stdc++.h>
 #include "./header/grafo-matriz-adjacencia.h"
 
-
 int parent[VERTICES];
 std::vector<std::vector<int> > adj;
 
-bool tem_ligacao(int v1, int v2) {
+bool MatrizAdjacencia::tem_ligacao(int v1, int v2) {
     if(grafo[v1][v2]) return true;
     return false;
 }
@@ -20,11 +19,6 @@ MatrizAdjacencia::Grafo(int V) {
       for (int j = 0; j < V; j++)
         grafo[i][j] = false;
     }
-}
-
-void MatrizAdjacencia::adicionar_aresta(int i, int j) {
-    grafo[i][j] = true;
-    grafo[j][i] = true;
 }
 
 void MatrizAdjacencia::adicionar_aresta(int i, int j) {
@@ -46,6 +40,9 @@ void MatrizAdjacencia::imprimir_representacao() {
     }
 }
 
+void MatrizAdjacencia::imprimir_valores() {
+    std::cout<<"imprimiu saida matriz!"<<std::endl;;
+}
 
 void MatrizAdjacencia::bfs(int start) {
     // Visited vector to so that
@@ -107,8 +104,8 @@ int MatrizAdjacencia::buscar(int i) {
 }
  
 void MatrizAdjacencia::unir(int i, int j) {
-    int a = find(i);
-    int b = find(j);
+    int a = buscar(i);
+    int b = buscar(j);
     parent[a] = b;
 }
  
@@ -126,7 +123,7 @@ void MatrizAdjacencia::kruskal(int cost[][VERTICES]) {
         int min = INT_MAX, a = -1, b = -1;
         for (int i = 0; i < V; i++) {
             for (int j = 0; j < V; j++) {
-                if (find(i) != find(j) && cost[i][j] < min) {
+                if (buscar(i) != buscar(j) && cost[i][j] < min) {
                     min = cost[i][j];
                     a = i;
                     b = j;

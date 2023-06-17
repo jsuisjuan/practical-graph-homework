@@ -11,8 +11,10 @@ private:
 public:
     Grafo(int V);
     void adicionar_aresta(int i, int j);
+    bool tem_ligacao(int v1, int v2);
     void remover_aresta(int i, int j);
     void imprimir_representacao();
+    void imprimir_valores();
     void bfs(int start);
     void dfs(int start, vector<bool>& visited);
     int  buscar(int i);
