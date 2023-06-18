@@ -118,3 +118,14 @@
         }
     } while(opcao != 0);
 } -->
+
+<!--  -->
+<!--  /* for (int i = 0; i < V; i++) {
+        
+       /*  for(int fo : *adj){
+            std::cout<<obter_grau_de_saida(fo)<<", ";
+        } */
+        for (std::list<int>::iterator it = begin(V); it != V.end(); ++it) {
+            std::cout<<*it<<std::endl; 
+        } 
+    } */ -->

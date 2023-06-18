@@ -11,7 +11,7 @@ bool MatrizAdjacencia::tem_ligacao(int v1, int v2) {
     return false;
 }
 
-MatrizAdjacencia::Grafo(int V) {
+void MatrizAdjacencia::Grafo(int V) {
     this->V = V;
     grafo = new bool*[V];
     for (int i = 0; i < V; i++) {

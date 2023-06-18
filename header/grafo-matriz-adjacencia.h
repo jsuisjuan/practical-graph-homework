@@ -9,7 +9,7 @@ private:
     bool** grafo;
     int V;
 public:
-    Grafo(int V);
+    void Grafo(int V);
     void adicionar_aresta(int i, int j);
     bool tem_ligacao(int v1, int v2);
     void remover_aresta(int i, int j);

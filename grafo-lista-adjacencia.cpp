@@ -2,10 +2,12 @@
 #include <list>
 #include <queue>
 #include <vector>
+#include <array>
 #include <stack>
 #include <cstring>
 #include <algorithm>
 #include "./header/grafo-lista-adjacencia.h"
+using namespace std;
 
 Aresta::Aresta(int v1, int v2, int peso) {
     vertice1 = v1;
@@ -29,13 +31,15 @@ bool Aresta::operator < (const Aresta& aresta2) const {
     return (peso < aresta2.peso);
 }
 
-ListaAdjacencia::Grafo(int V) {
+void ListaAdjacencia::Grafo(int V) {
     this->V = V;
     adj = new std::list<int>[V];
 }
 
 void ListaAdjacencia::adicionar_aresta(int v1, int v2) {
+    std::cout<<v1<<"-"<<v2<<std::endl;
     adj[v1].push_back(v2);
+    std::cout<<v1<<"-"<<v2<<std::endl;
 }
 
 void ListaAdjacencia::adicionar_aresta(int v1, int v2, int peso) {
@@ -54,8 +58,14 @@ bool ListaAdjacencia::existe_vizinho(int v1, int v2) {
     return false;
 }
 
-void ListaAdjacencia::imprimir_valores() {
-    std::cout<<"imprimiu saida lista!"<<std::endl;;
+void ListaAdjacencia::imprimir_valores(double numero_vertice, int numero_arestas, ListaAdjacencia grafo_lista) {
+    double grau;
+    std::cout<<"\n# n = "<<numero_vertice<<std::endl;
+    std::cout<<"# m = "<<numero_arestas<<std::endl;
+    std::cout<<"# d_medio = "<<(numero_arestas*2)/numero_vertice<<std::endl;
+    std::cout<<grafo_lista.V<<std::endl;
+    for (auto v : grafo_lista.V) std::cout << v << "\n";
+    
 }
 
 void ListaAdjacencia::dfs(int v) {

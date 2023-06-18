@@ -23,12 +23,12 @@ private:
     std::vector<Aresta> arestas;
     std::list<std::pair<int, int> > * adjd;
 public:
-    Grafo(int V);
+    void Grafo(int V);
     void adicionar_aresta(int v1, int v2);
     void adicionar_aresta(int v1, int v2, int peso);
     int  obter_grau_de_saida(int v);
     bool existe_vizinho(int v1, int v2);
-    void imprimir_valores();
+    void imprimir_valores(double numero_vertice, int numero_arestas, ListaAdjacencia grafo_lista);
     void dfs(int v);
     void bfs(int v);
     void unir(int subset[], int v1, int v2);
