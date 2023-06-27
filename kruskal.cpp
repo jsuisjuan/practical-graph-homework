@@ -4,6 +4,8 @@
 #include <string.h>     
 using namespace std;
 
+// just some random comment
+
 class Aresta {
 private:
     int vertice1, vertice2, peso;
